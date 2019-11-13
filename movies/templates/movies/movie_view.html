@@ -1,0 +1,22 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+    <div class="my-5">
+        <button type="button" class="btn btn-outline-secondary" onClick="javascript:history.go(-1);"><i class="fas fa-chevron-left mr-1"></i>Wróć</button>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/{{ movie.posterUrl }}" class="card-img">
+        </div>
+        <div class="col-sm-8">
+            <h1>{{ movie.title }}</h1>
+            <div><span class="font-weight-bold">Dlugość: </span>{{ movie.duration }}</div>
+            <div><span class="font-weight-bold">Klasyfikacji wiekowa: </span>{{ movie.ageRating.name }}</div>
+            <div><span class="font-weight-bold">Tematyka: </span>{{ movie.topic.name }}</div>
+            <div><span class="font-weight-bold">Kraj: </span>{{ movie.country.name }}</div>
+            <div><span class="font-weight-bold">Rok: </span>{{ movie.year }}</div>
+            <div><span class="font-weight-bold">Opis: </span>{{ movie.description }}</div>
+        </div>
+    </div>
+{% endblock %}

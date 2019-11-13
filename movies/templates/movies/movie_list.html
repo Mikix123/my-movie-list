@@ -1,0 +1,59 @@
+{% extends 'movies/base.html' %}
+{% block content %}
+    <div class="row" style="align-items: center;">
+        <h1>All movies</h1>
+        <a href="{% url "movie_new" %}" title="Dodaj nowy">
+            <i class="far fa-plus-square icon-center ml-3" style="font-size: 2.0em; color: green"></i>
+        </a>
+    </div>
+    <div class="card-group">
+        {% for movie in movies %}
+            <div class="col-md-3 jobs_index_middle_panels">
+                <div class="image_overlay">
+                    <a href="{% url "movie_view" movie.id %}">
+                        <img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/{{ movie.posterUrl }}"
+                             class="card-img" title="{{ movie.title }}">
+                    </a>
+                    <div class="overlay">
+                        <a class="icon_link" href="{% url "movie_edit" movie.id %}" title="Edytuj"><i class="far fa-edit float-center"></i></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <p class="card-text">{{ movie.short_description }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if movies.has_other_pages %}
+        <ul class="pagination justify-content-center">
+            {% if movies.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ movies.previous_page_number }}">Poprzedni</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Poprzedni</a>
+                </li>
+            {% endif %}
+            {% for i in movies.paginator.page_range %}
+                {% if movies.number == i %}
+                    <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>
+                    </li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if movies.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ movies.next_page_number }}">Następny</a></li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Następny</a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+
